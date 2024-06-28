@@ -1,17 +1,49 @@
 <!DOCTYPE html>
-<html>
-  <head>
+<!-- other page elements -->
+<head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>video-test</title>
+    <title>LIXIL</title>
   </head>
-  <body>
-    <!-- Campaign -->
-    <script data-apikey="w0xRg0TQSYGT5X8WFWZMgg" data-env="us01" src="https://us01ccistatic.zoom.us/us01cci/web-sdk/zcc-sdk.js"></script>
-    <!--<script src="coi-serviceworker.js"></script>-->
-    <!-- Entry Point -->
-    <!--
-    <script data-chat-entry-id="w0Vrnv6zTRSYh54dDvktPw" data-apikey="w0xRg0TQSYGT5X8WFWZMgg" src="https://us01ccistatic.zoom.us/us01cci/web-sdk/chat-client.js"></script>
-    -->
-  </body>
+    <div id="Zoom Test">create video</div>
+    <script src="https://us01ccistatic.zoom.us/us01cci/web-sdk/video-client.js"></script>
+    <script src="coi-serviceworker.js"></script>
+    <!-- The script source is the video client JS SDK for Contact Center.
+    Get this from the code copied from the flow. -->
+    <script>
+      (() => {
+        const dom = document.getElementById('Zoom Test')
+        dom.addEventListener('click', async () => {
+          const entryId = "_PICaBPBR7O_a0oO2A7cPw" /* Get from the code copied from
+                                          your flow */
+          const videoClient = new VideoClient({
+          });
+          await videoClient.init({
+            entryId,
+            language: 'ja-JP',
+            name: 'LIXIL ショールーム東京', /* optional field, omit if not using, null value
+                        not accepted */
+//            options: {enforceVirtualBackground: true}
+//              enforceVirtualBackground: true
+          });
+
+            // Juni
+            videoClient.startVideo();
+            //videoClient.startVideo({ virtualBackground: { imageUrl: 'blur' } });
+            //stream.updateVirtualBackgroundImage(imageUrl: 'blur');
+            //const stream = videoClient.getMediaStream();
+            stream.enableBackgroundNoiseSuppression(true);
+
+
+
+            
+          videoClient.on('video-end', () => {
+            console.log('video ended') /* Add any actions to perform when the
+                                        video ends, for example, print to
+                                        console log */
+          })
+        })
+      })()
+    </script>
+<!-- other page elements -->
 </html>
