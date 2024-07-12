@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<!-- other page elements -->
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>デモンストレーション</title>
+</head>
+
+<body>
+    <img src="../LIXIL.png" alt="Image" id="ZoomTest" style="cursor: pointer;">
+    <script src="../coi-serviceworker.js"></script>
+    <script src="https://us01ccistatic.zoom.us/us01cci/web-sdk/video-client.js"></script>
+    <!-- The script source is the video client JS SDK for Contact Center.  Get this from the code copied from the flow. -->
+    
+    <script>
+        (() => {
+            const dom = document.getElementById('ZoomTest');
+            dom.addEventListener('click', async () => {
+                const entryId = "su_RhqNRRuuSZACkWx1v5g"; /* Get from the code copied from your flow */
+                const videoClient = new VideoClient({
+                });
+          
+                await videoClient.init({
+                    entryId,
+                    language: 'ja-JP',
+                    // name: 'Test ショールーム' /* optional field, omit if not using, null value not accepted */
+                    //options: {enforceVirtualBackground: true}
+                    //enforceVirtualBackground: true
+                });
+    
+                // Juni
+                videoClient.startVideo();
+                //videoClient.startVideo({ virtualBackground: { imageUrl: 'blur' } });
+                //stream.updateVirtualBackgroundImage(imageUrl: 'blur');
+                //const stream = videoClient.getMediaStream();
+                stream.enableBackgroundNoiseSuppression(true);
+    
+                videoClient.on('video-end', () => {
+                    console.log('video ended') /* Add any actions to perform when the video ends, for example, print to console log */
+                })
+            })
+        })()
+    </script>
+</body>
+
+</html>
